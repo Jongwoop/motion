@@ -4,6 +4,7 @@ import { Composable, PageComponent, PageItemComponent } from "./components/page/
 import { TodoComponent } from "./components/page/item/todo.js";
 import { VideoComponent } from "./components/page/item/video.js";
 import { Component } from "./components/component.js";
+import { InputDialog } from "./components/dialog/dialog.js";
 
 class App {
   private readonly page: Component & Composable;
@@ -22,6 +23,21 @@ class App {
 
     const video = new VideoComponent("video Title", "https://www.youtube.com/watch?v=aEPt7mNcUNU");
     this.page.addChild(video);
+
+    const imageBtn = document.querySelector("#new-image")! as HTMLButtonElement;
+    imageBtn.addEventListener("click", () => {
+      const dialog = new InputDialog();
+
+      dialog.setOnCloseListener(() => {
+        dialog.removeFrom(document.body);
+      });
+      dialog.setOnSubmiteListener(() => {
+        // 섹션 만들어서 페이지에 추가
+        dialog.removeFrom(document.body);
+      });
+
+      dialog.attachTo(document.body);
+    });
   }
 }
 
